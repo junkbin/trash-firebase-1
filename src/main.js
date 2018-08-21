@@ -14,16 +14,19 @@
         if(dataRef && dataRef.matchEvents && dataRef.matchEvents.data && dataRef.matchEvents.data.innings){
             let baseref = dataRef.matchEvents.data.innings;
 
-            let first = baseref[0];
-            let second = baseref[1];
+            let first = baseref[0].inningDetail || {};
+            let second = baseref[1].inningDetail || {};
 
-            let firstName = first.inningDetail.batTeamId.name || "";
-            let secondName = second.inningDetail.batTeamId.name || "";
+            let firstName = first.batTeamId.name || "";
+            let secondName = second.batTeamId.name || "";
             let tokens = secondName.split(/\s+/g);
             secondName = (tokens && tokens.length > 1) ? tokens[0] : secondName;
 
-            elem1.innerHTML = firstName;
-            elem2.innerHTML = secondName;
+            let firstData = `${firstName} - ${first.inningScore}/${first.inningWicket}`;
+            let secondData = `${secondName} - ${second.inningScore}/${second.inningWicket}`; 
+
+            elem1.innerHTML = firstData;
+            elem2.innerHTML = secondData;
         }
 
     });
